@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Cuestionario de inicio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --ground:#EEF0F3; --surface:#FFFFFF; --ink:#14171C; --muted:#5B6270; --line:#D6DAE1;
+  --accent:#1F4FD1; --accent-ink:#FFFFFF; --accent-soft:#E3E9FB;
+  --p25:#D22F2F; --p20:#1F4FD1; --p15:#E5B21A; --p10:#2E9A4F; --p5:#E9ECF0;
+  --danger:#B42318; --ok:#1B7F43;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1216; --surface:#181C22; --ink:#ECEFF3; --muted:#9AA3B2; --line:#2B313B;
+    --accent:#6F92FF; --accent-ink:#0B0E14; --accent-soft:#1E2A4A; --p5:#3A414C;
+    --danger:#FF7B6B; --ok:#5BD08A;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1216; --surface:#181C22; --ink:#ECEFF3; --muted:#9AA3B2; --line:#2B313B;
+  --accent:#6F92FF; --accent-ink:#0B0E14; --accent-soft:#1E2A4A; --p5:#3A414C;
+  --danger:#FF7B6B; --ok:#5BD08A;
+}
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:680px;margin:0 auto}
+header.top{padding-block:40px 20px}
+.eyebrow{font-family:var(--display);text-transform:uppercase;letter-spacing:.14em;font-size:14px;color:var(--muted);font-weight:700}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(40px,9vw,60px);line-height:.95;margin:8px 0 14px;text-transform:uppercase;letter-spacing:.01em;text-wrap:balance}
+.client{display:inline-block;margin-top:12px;padding:6px 12px;border-radius:99px;background:var(--accent-soft);color:var(--ink);font-size:14px}
+.lead{color:var(--muted);max-width:60ch;margin:0}
+.plates{display:flex;gap:6px;align-items:center;margin-top:18px}
+.plates span{display:block;border-radius:3px}
+.progress{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ground);padding-block:12px;margin-bottom:8px}
+.bar{height:8px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.progress small{display:flex;justify-content:space-between;color:var(--muted);font-size:13px;margin-top:6px;font-variant-numeric:tabular-nums}
+form{display:grid;gap:18px}
+fieldset{border:1px solid var(--line);background:var(--surface);border-radius:14px;margin:0;padding:22px 20px;display:grid;gap:20px;min-width:0}
+legend{display:contents}
+.sechead{display:flex;gap:14px;align-items:center}
+.disc{flex:none;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:19px;color:#fff;box-shadow:inset 0 0 0 5px rgba(0,0,0,.14)}
+.disc.light{color:#14171C}
+.sechead h2{font-family:var(--display);font-weight:700;font-size:26px;text-transform:uppercase;letter-spacing:.02em;margin:0;line-height:1}
+.sechead p{margin:3px 0 0;color:var(--muted);font-size:14px}
+.field{display:grid;gap:8px;min-width:0}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px}
+label.q,.q{font-weight:600;font-size:15px}
+.q .req{color:var(--accent);margin-left:2px}
+.hint{color:var(--muted);font-size:13px;margin-top:-4px}
+input[type=text],input[type=email],input[type=tel],input[type=number],input[type=date],select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--ground);border:1px solid var(--line);border-radius:10px;padding:11px 12px;min-width:0}
+textarea{min-height:84px;resize:vertical}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.unit{position:relative}
+.unit input{padding-right:48px}
+.unit em{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-style:normal;color:var(--muted);font-size:14px;pointer-events:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{position:relative;cursor:pointer}
+.chips input{position:absolute;opacity:0;inset:0;cursor:pointer}
+.chips span{display:inline-block;padding:8px 14px;border:1px solid var(--line);border-radius:99px;font-size:14px;background:var(--ground);transition:background .15s,border-color .15s}
+.chips input:checked+span{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);font-weight:600}
+.chips input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.scale{display:grid;grid-template-columns:repeat(10,1fr);gap:4px}
+.scale span{display:block;text-align:center;padding:9px 0;border-radius:8px;font-variant-numeric:tabular-nums;font-weight:600}
+.scale-ends{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.field.invalid input,.field.invalid select,.field.invalid textarea{border-color:var(--danger)}
+.field.invalid .err{display:block}
+.err{display:none;color:var(--danger);font-size:13px}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--muted)}
+.consent input{margin-top:4px;width:18px;height:18px;accent-color:var(--accent);flex:none}
+.btn{appearance:none;border:0;border-radius:12px;padding:15px 22px;font:700 17px/1 var(--body);cursor:pointer;background:var(--accent);color:var(--accent-ink);text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.actions{display:flex;flex-wrap:wrap;gap:10px}
+.formerr{color:var(--danger);font-weight:600;margin:0}
+#done{display:grid;gap:18px}
+#done .card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 20px;display:grid;gap:14px}
+#done h2{font-family:var(--display);font-size:34px;text-transform:uppercase;margin:0;line-height:1}
+#done ol{margin:0;padding-left:20px;color:var(--muted)}
+#summary{font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;min-height:260px;background:var(--ground)}
+.toast{color:var(--ok);font-weight:600;font-size:14px;min-height:1.2em}
+footer{color:var(--muted);font-size:13px;margin-top:28px;text-align:center}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-width:420px){.scale{grid-template-columns:repeat(5,1fr)}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="eyebrow">Entrenamiento y nutrición · Alberto Martín Oviedo</div>
+    <div class="client">Planificación para <strong>Carlos Merino</strong></div>
+    <h1>Cuestionario de inicio</h1>
+    <p class="lead">Carlos, con esto preparo tu plan de entrenamiento y de alimentación a tu medida. Tardarás unos 10 minutos. Sé lo más sincero posible: cuanto mejor te conozca, mejor funcionará el plan. Lo que escribas se guarda en este navegador hasta que lo envíes.</p>
+    <div class="plates" aria-hidden="true">
+      <span style="width:10px;height:44px;background:var(--p25)"></span>
+      <span style="width:10px;height:40px;background:var(--p20)"></span>
+      <span style="width:9px;height:34px;background:var(--p15)"></span>
+      <span style="width:8px;height:28px;background:var(--p10)"></span>
+      <span style="width:60px;height:6px;background:var(--muted)"></span>
+    </div>
+  </header>
+
+  <div class="progress" id="progress">
+    <div class="bar"><i id="barfill"></i></div>
+    <small><span id="progtext">0 de 0 preguntas obligatorias</span><span id="savedtext"></span></small>
+  </div>
+
+  <form id="form" novalidate></form>
+
+  <section id="done" hidden>
+    <div class="card" id="okcard" hidden>
+      <h2>¡Enviado!</h2>
+      <p style="margin:0">Gracias, Carlos. Tus respuestas ya le han llegado a Alberto, que te escribirá en los próximos días con tu plan.</p>
+    </div>
+    <div class="card" id="failcard" hidden>
+      <h2>No se ha podido enviar</h2>
+      <p style="margin:0">Ha habido un problema de conexión, pero tus respuestas no se han perdido. Pulsa <strong>Reintentar</strong>, o <strong>Enviar por email</strong> para mandarlas desde tu correo con todo ya escrito. También puedes copiarlas y enviarlas por WhatsApp.</p>
+      <div class="actions">
+        <button class="btn" type="button" id="retrybtn">Reintentar</button>
+        <a class="btn ghost" id="mailbtn" href="#">Enviar por email</a>
+        <button class="btn ghost" type="button" id="copybtn">Copiar respuestas</button>
+        <button class="btn ghost" type="button" id="editbtn">Volver a editar</button>
+      </div>
+      <div class="toast" id="toast" role="status"></div>
+      <textarea id="summary" readonly aria-label="Resumen de tus respuestas"></textarea>
+    </div>
+  </section>
+
+  <footer>Tus datos solo los usará Alberto Martín Oviedo para preparar y seguir tu plan. No se comparten con terceros.</footer>
+</div>
+
+<script>
+const COACH_EMAIL = "betomartin83@hotmail.com";
+const DAYS = ["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
+const PLATES = ["--p25","--p20","--p15","--p10","--p25","--p20","--p15","--p10"];
+
+const SECTIONS = [
+ {t:"Tus datos", d:"Lo básico para conocerte", f:[
+   {row:[{id:"nombre",l:"Nombre y apellidos",type:"text",req:1},{id:"edad",l:"Edad",type:"number",unit:"años",req:1}]},
+   {row:[{id:"email",l:"Email",type:"email",req:1},{id:"telefono",l:"Teléfono (WhatsApp)",type:"tel"}]},
+   {id:"sexo",l:"Sexo",type:"radio",opts:["Hombre","Mujer","Prefiero no decirlo"],req:1},
+   {row:[{id:"altura",l:"Altura",type:"number",unit:"cm",req:1},{id:"peso",l:"Peso actual",type:"number",unit:"kg",step:"0.1",req:1}]},
+   {id:"profesion",l:"¿A qué te dedicas y cómo es tu horario?",type:"text",hint:"Ej.: oficina 9–18 h, turnos rotativos, estudiante…"},
+   {id:"actividad",l:"¿Cómo de activo eres fuera del gimnasio?",type:"radio",opts:["Sedentario (casi todo el día sentado)","Poco activo","Activo (de pie / caminando bastante)","Muy activo (trabajo físico)"]},
+   {id:"pasos",l:"Pasos diarios aproximados (si lo sabes)",type:"number",unit:"pasos"}
+ ]},
+ {t:"Tu objetivo", d:"A dónde quieres llegar", f:[
+   {id:"objetivo",l:"Objetivo principal",type:"radio",opts:["Perder grasa","Ganar músculo","Recomposición (perder grasa y ganar músculo)","Mejorar rendimiento deportivo","Salud y hábitos"],req:1},
+   {row:[{id:"peso_obj",l:"Objetivo de peso",type:"number",unit:"kg",step:"0.1"},{id:"plazo",l:"¿En cuánto tiempo?",type:"select",opts:["","1–3 meses","3–6 meses","6–12 meses","Sin prisa"]}]},
+   {id:"motivo",l:"¿Por qué quieres conseguirlo ahora?",type:"textarea",hint:"Una boda, verano, salud, sentirte mejor… lo que sea, ayuda a entenderte."},
+   {row:[{id:"cintura",l:"Cintura (a la altura del ombligo)",type:"number",unit:"cm",step:"0.5"},{id:"cadera",l:"Cadera",type:"number",unit:"cm",step:"0.5"}]}
+ ]},
+ {t:"Salud", d:"Confidencial. Solo para que entrenes seguro", f:[
+   {id:"lesiones",l:"¿Tienes o has tenido lesiones o dolores? (espalda, rodillas, hombros…)",type:"textarea",hint:"Indica cuál, cuándo y si te molesta al entrenar. Si no, escribe «ninguna».",req:1},
+   {id:"condiciones",l:"¿Alguna enfermedad o condición médica? (tensión, diabetes, tiroides, corazón, asma…)",type:"textarea",req:1,hint:"Si no, escribe «ninguna»."},
+   {id:"medicacion",l:"¿Tomas alguna medicación?",type:"text"},
+   {id:"cirugias",l:"¿Operaciones en los últimos 2 años?",type:"text"},
+   {id:"parq",l:"Marca lo que te haya pasado alguna vez",type:"check",opts:["Dolor en el pecho al hacer esfuerzo","Mareos o pérdida de conocimiento","Un médico me ha dicho que limite el ejercicio","Estoy embarazada o en posparto","Nada de esto"]}
+ ]},
+ {t:"Entrenamiento", d:"Tu experiencia y disponibilidad", f:[
+   {id:"experiencia",l:"Experiencia en el gimnasio",type:"radio",opts:["Nunca he entrenado","Menos de 6 meses","6 meses – 2 años","Más de 2 años"],req:1},
+   {id:"entrena_ahora",l:"¿Qué entrenas ahora mismo? (si entrenas)",type:"textarea",hint:"Rutina actual, días, tipo de entreno…"},
+   {id:"dias_semana",l:"¿Cuántos días a la semana vas a entrenar de gimnasio?",type:"radio",opts:["2","3","4","5","6"],req:1},
+   {id:"dias",l:"¿Qué días vas a entrenar?",type:"check",opts:DAYS,req:1},
+   {id:"duracion",l:"Tiempo por sesión",type:"select",opts:["","45 min","60 min","75 min","90 min o más"]},
+   {id:"lugar",l:"¿Dónde entrenas?",type:"radio",opts:["Gimnasio completo","Gimnasio pequeño / básico","En casa"]},
+   {id:"pref_ejercicios",l:"¿Alguna preferencia de máquina o ejercicio?",type:"textarea",hint:"Lo que te gusta hacer o quieres incluir."},
+   {id:"evitar_ejercicios",l:"¿Algún ejercicio que no te guste o no puedas hacer?",type:"textarea"},
+   {id:"cardio",l:"Cardio (correr, bici…)",type:"radio",opts:["Sí","No"],req:1},
+   {id:"cardio_cuanto",l:"Si es que sí, ¿cuánto?",type:"textarea",hint:"Tipo, días por semana y minutos. Ej.: correr 2 días × 30 min, bici el finde 1 h.",showIf:["cardio","Sí"]},
+   {id:"otros_deportes",l:"¿Practicas otro deporte? (fútbol, pádel, natación…)",type:"radio",opts:["Sí","No"]},
+   {id:"otros_deportes_horas",l:"Si es que sí, ¿cuál y cuántas horas?",type:"textarea",hint:"Ej.: pádel 2 días × 1,5 h a la semana.",showIf:["otros_deportes","Sí"]}
+ ]},
+ {t:"Alimentación", d:"Cómo comes hoy y qué te encaja", f:[
+   {id:"repetir",l:"¿Te importa comer todos los días lo mismo o prefieres variar?",type:"radio",opts:["No me importa repetir","Prefiero algo de variedad","Necesito mucha variedad"],req:1},
+   {id:"pref_comida",l:"¿Alguna preferencia de comida?",type:"textarea",hint:"Alimentos que te encantan y quieres que aparezcan en tu plan."},
+   {id:"no_come",l:"Alimentos que no comes o no te gustan",type:"textarea"},
+   {id:"alergias",l:"Alergias o intolerancias",type:"text",req:1,hint:"Si no, escribe «ninguna»."},
+   {id:"tipo_dieta",l:"Tipo de alimentación",type:"radio",opts:["Como de todo","Vegetariana","Vegana","Sin cerdo / halal","Otra"]},
+   {id:"comidas_dia",l:"¿Cuántas comidas haces al día?",type:"select",opts:["","2","3","4","5 o más"],req:1},
+   {id:"dia_tipico",l:"Describe lo que comes en un día normal",type:"textarea",hint:"Desayuno, comida, cena y picoteos. Aproximado vale.",req:1},
+   {id:"cocina",l:"¿Quién cocina y cuánto tiempo tienes?",type:"radio",opts:["Cocino yo y tengo tiempo","Cocino yo pero con poco tiempo","Cocina otra persona","Como fuera / tupper del trabajo a menudo"]},
+   {id:"fuera",l:"¿Cuántas veces comes fuera a la semana?",type:"select",opts:["","Nunca o casi nunca","1–2","3–5","Más de 5"]},
+   {id:"alcohol",l:"Alcohol",type:"select",opts:["","No bebo","Ocasional","Fines de semana","Varios días por semana"]},
+   {id:"picoteo",l:"¿Qué es lo que más te cuesta con la comida?",type:"check",opts:["Picar entre horas","Dulces","Comer de noche","Fines de semana","Comer por ansiedad o aburrimiento","Tener hambre","Nada en especial"]},
+   {id:"suplementos",l:"¿Tomas suplementos? (proteína, creatina…)",type:"text"},
+   {id:"digestion",l:"¿Problemas de digestión? (hinchazón, estreñimiento, acidez…)",type:"text"}
+ ]},
+ {t:"Descanso y hábitos", d:"Lo que pasa fuera del gimnasio también cuenta", f:[
+   {row:[{id:"sueno",l:"Horas de sueño",type:"select",opts:["","Menos de 6","6–7","7–8","Más de 8"],req:1},{id:"sueno_calidad",l:"Calidad del sueño",type:"select",opts:["","Mala","Regular","Buena","Muy buena"]}]},
+   {id:"estres",l:"Nivel de estrés en tu día a día",type:"scale",lo:"Nada",hi:"Muchísimo"},
+   {id:"tabaco",l:"¿Fumas?",type:"radio",opts:["No","Sí","Lo estoy dejando"]}
+ ]},
+ {t:"Compromiso y seguimiento", d:"Para ajustar el plan a ti", f:[
+   {id:"compromiso",l:"Del 1 al 10, ¿cuánto te vas a comprometer?",type:"scale",lo:"Poco",hi:"Totalmente",req:1},
+   {id:"obstaculo",l:"¿Qué crees que te lo puede poner más difícil?",type:"textarea",hint:"Falta de tiempo, viajes, cenas sociales, motivación…"},
+   {id:"fecha_inicio",l:"¿Cuándo quieres empezar?",type:"date"},
+   {id:"otros",l:"¿Algo más que deba saber?",type:"textarea"}
+ ]}
+];
+
+const form = document.getElementById("form");
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const allFields = [];
+
+function fieldHTML(f){
+  allFields.push(f);
+  const req = f.req ? '<span class="req" aria-hidden="true">*</span>' : '';
+  const hint = f.hint ? `<div class="hint">${esc(f.hint)}</div>` : '';
+  const err = `<span class="err">Este campo es obligatorio.</span>`;
+  let ctrl = "";
+  if (["text","email","tel","number","date"].includes(f.type)){
+    const extra = f.type==="number" ? ` inputmode="decimal" min="0" step="${f.step||1}"` : "";
+    const input = `<input id="${f.id}" name="${f.id}" type="${f.type}"${extra}${f.req?' required':''}>`;
+    ctrl = f.unit ? `<div class="unit">${input}<em>${esc(f.unit)}</em></div>` : input;
+  } else if (f.type==="textarea"){
+    ctrl = `<textarea id="${f.id}" name="${f.id}"${f.req?' required':''}></textarea>`;
+  } else if (f.type==="select"){
+    ctrl = `<select id="${f.id}" name="${f.id}"${f.req?' required':''}>${f.opts.map(o=>`<option value="${esc(o)}">${o?esc(o):"Elige una opción"}</option>`).join("")}</select>`;
+  } else if (f.type==="radio"||f.type==="check"){
+    const t = f.type==="radio"?"radio":"checkbox";
+    ctrl = `<div class="chips" role="group" aria-labelledby="q_${f.id}">${f.opts.map((o,i)=>`<label><input type="${t}" id="${f.id}_${i}" name="${f.id}" value="${esc(o)}"><span>${esc(o)}</span></label>`).join("")}</div>`;
+  } else if (f.type==="scale"){
+    ctrl = `<div class="chips scale" role="group" aria-labelledby="q_${f.id}">${[...Array(10)].map((_,i)=>`<label><input type="radio" id="${f.id}_${i}" name="${f.id}" value="${i+1}"><span>${i+1}</span></label>`).join("")}</div><div class="scale-ends"><span>${esc(f.lo)}</span><span>${esc(f.hi)}</span></div>`;
+  }
+  const isGroup = ["radio","check","scale"].includes(f.type);
+  const lab = isGroup ? `<div class="q" id="q_${f.id}">${esc(f.l)}${req}</div>` : `<label class="q" for="${f.id}">${esc(f.l)}${req}</label>`;
+  return `<div class="field" data-field="${f.id}"${f.showIf?` data-showif="${f.showIf[0]}|${esc(f.showIf[1])}" hidden`:''}>${lab}${hint}${ctrl}${err}</div>`;
+}
+
+form.innerHTML = SECTIONS.map((s,si)=>{
+  const plate = PLATES[si];
+  const light = plate==="--p15";
+  return `<fieldset><legend><div class="sechead"><div class="disc${light?' light':''}" style="background:var(${plate})">${si+1}</div><div><h2>${esc(s.t)}</h2><p>${esc(s.d)}</p></div></div></legend>${
+    s.f.map(f=> f.row ? `<div class="row">${f.row.map(fieldHTML).join("")}</div>` : fieldHTML(f)).join("")
+  }</fieldset>`;
+}).join("") + `
+<fieldset>
+  <label class="consent" for="consent"><input type="checkbox" id="consent" name="consent"><span>Confirmo que la información es verdadera y doy mi consentimiento para que Alberto Martín Oviedo use estos datos (incluidos los de salud) únicamente para preparar y hacer el seguimiento de mi plan de entrenamiento y nutrición.</span></label>
+  <p class="formerr" id="formerr" hidden></p>
+  <div class="actions"><button class="btn" type="submit" id="sendbtn">Enviar cuestionario</button></div>
+</fieldset>`;
+
+const byId = Object.fromEntries(allFields.map(f=>[f.id,f]));
+
+function value(f){
+  if (f.type==="radio"||f.type==="scale"){ const c=form.querySelector(`input[name="${f.id}"]:checked`); return c?c.value:""; }
+  if (f.type==="check") return [...form.querySelectorAll(`input[name="${f.id}"]:checked`)].map(i=>i.value).join(", ");
+  const el=document.getElementById(f.id); return el?el.value.trim():"";
+}
+function visible(f){ const el=form.querySelector(`[data-field="${f.id}"]`); return el && !el.hidden; }
+
+function updateConditional(){
+  form.querySelectorAll("[data-showif]").forEach(el=>{
+    const [dep,val]=el.dataset.showif.split("|");
+    el.hidden = value(byId[dep])!==val;
+  });
+}
+function updateProgress(){
+  const req = allFields.filter(f=>f.req && visible(f));
+  const done = req.filter(f=>value(f)!=="").length;
+  document.getElementById("barfill").style.width = (req.length?done/req.length*100:0)+"%";
+  document.getElementById("progtext").textContent = `${done} de ${req.length} preguntas obligatorias`;
+}
+
+const KEY="cuestionario-inicio-v1";
+let saveT;
+function saveDraft(){
+  clearTimeout(saveT);
+  saveT=setTimeout(()=>{
+    try{
+      const data={}; allFields.forEach(f=>data[f.id]=value(f));
+      data.consent=document.getElementById("consent").checked;
+      localStorage.setItem(KEY,JSON.stringify(data));
+      document.getElementById("savedtext").textContent="Borrador guardado";
+    }catch(e){}
+  },400);
+}
+function loadDraft(){
+  let data; try{ data=JSON.parse(localStorage.getItem(KEY)||"null"); }catch(e){ data=null; }
+  if(!data) return;
+  allFields.forEach(f=>{
+    const v=data[f.id]; if(!v) return;
+    if(["radio","scale"].includes(f.type)){ form.querySelectorAll(`input[name="${f.id}"]`).forEach(i=>i.checked=i.value===v); }
+    else if(f.type==="check"){ const set=v.split(", "); form.querySelectorAll(`input[name="${f.id}"]`).forEach(i=>i.checked=set.includes(i.value)); }
+    else { const el=document.getElementById(f.id); if(el) el.value=v; }
+  });
+  document.getElementById("consent").checked=!!data.consent;
+  document.getElementById("savedtext").textContent="Borrador recuperado";
+}
+
+// "Nada de esto" exclusivity
+form.addEventListener("change",e=>{
+  const t=e.target;
+  if(t.name==="parq"||t.name==="picoteo"){
+    const none = t.name==="parq"?"Nada de esto":"Nada en especial";
+    const boxes=form.querySelectorAll(`input[name="${t.name}"]`);
+    if(t.value===none && t.checked) boxes.forEach(b=>{ if(b!==t) b.checked=false; });
+    else if(t.checked) boxes.forEach(b=>{ if(b.value===none) b.checked=false; });
+  }
+  if(t.name==="dias"){
+    const n=form.querySelectorAll('input[name="dias"]:checked').length;
+    if(n>=2&&n<=6){ const r=form.querySelector(`input[name="dias_semana"][value="${n}"]`); if(r && !form.querySelector('input[name="dias_semana"]:checked')) r.checked=true; }
+  }
+});
+form.addEventListener("input",()=>{ updateConditional(); updateProgress(); saveDraft(); form.querySelectorAll(".field.invalid").forEach(el=>{ const f=byId[el.dataset.field]; if(value(f)) el.classList.remove("invalid"); }); });
+
+function buildSummary(){
+  const name=value(byId.nombre)||"Carlos Merino";
+  const lines=[`CUESTIONARIO DE INICIO – PLANIFICACIÓN PARA CARLOS MERINO`,`Rellenado por: ${name}`,`Enviado: ${new Date().toLocaleString("es-ES")}`,""];
+  SECTIONS.forEach((s,si)=>{
+    lines.push(`== ${si+1}. ${s.t.toUpperCase()} ==`);
+    s.f.flatMap(f=>f.row||[f]).forEach(f=>{
+      if(!visible(f)) return;
+      let v=value(f); if(v && f.unit) v+=" "+f.unit; if(v && f.type==="scale") v+="/10";
+      lines.push(`• ${f.l}: ${v||"—"}`);
+    });
+    lines.push("");
+  });
+  lines.push("Consentimiento de uso de datos: Sí");
+  return {name,text:lines.join("\n")};
+}
+
+form.addEventListener("submit",e=>{
+  e.preventDefault();
+  let first=null;
+  allFields.forEach(f=>{
+    const el=form.querySelector(`[data-field="${f.id}"]`);
+    const bad=f.req && visible(f) && !value(f);
+    el.classList.toggle("invalid",bad);
+    if(bad && !first) first=el;
+  });
+  const consent=document.getElementById("consent").checked;
+  const errEl=document.getElementById("formerr");
+  if(first||!consent){
+    errEl.hidden=false;
+    errEl.textContent = first ? "Faltan algunas preguntas obligatorias (marcadas en rojo)." : "Marca la casilla de consentimiento para poder enviar.";
+    (first||document.getElementById("consent")).scrollIntoView({behavior:"smooth",block:"center"});
+    return;
+  }
+  errEl.hidden=true;
+  send();
+});
+
+function buildPayload(name){
+  const data={_subject:"Cuestionario de inicio – "+name,_template:"table",_captcha:"false"};
+  const mail=value(byId.email); if(mail) data._replyto=mail;
+  SECTIONS.forEach((s,si)=>{
+    s.f.flatMap(f=>f.row||[f]).forEach(f=>{
+      if(!visible(f)) return;
+      let v=value(f); if(v && f.unit) v+=" "+f.unit; if(v && f.type==="scale") v+="/10";
+      data[`${si+1}. ${f.l}`]=v||"—";
+    });
+  });
+  data["Consentimiento de datos"]="Sí";
+  return data;
+}
+
+async function send(){
+  const btn=document.getElementById("sendbtn"), retry=document.getElementById("retrybtn");
+  const {name,text}=buildSummary();
+  document.getElementById("summary").value=text;
+  document.getElementById("mailbtn").href=`mailto:${COACH_EMAIL}?subject=${encodeURIComponent("Cuestionario de inicio – "+name)}&body=${encodeURIComponent(text)}`;
+  btn.disabled=retry.disabled=true; btn.textContent=retry.textContent="Enviando…";
+  let ok=false;
+  try{
+    const r=await fetch(`https://formsubmit.co/ajax/${COACH_EMAIL}`,{method:"POST",headers:{"Content-Type":"application/json","Accept":"application/json"},body:JSON.stringify(buildPayload(name))});
+    const j=await r.json().catch(()=>({}));
+    ok = r.ok && String(j.success)==="true";
+  }catch(e){ ok=false; }
+  btn.disabled=retry.disabled=false; btn.textContent="Enviar cuestionario"; retry.textContent="Reintentar";
+  document.getElementById("okcard").hidden=!ok;
+  document.getElementById("failcard").hidden=ok;
+  form.hidden=true; document.getElementById("progress").hidden=true;
+  document.getElementById("done").hidden=false;
+  if(ok){ try{ localStorage.removeItem(KEY); }catch(e){} }
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.getElementById("retrybtn").onclick=()=>send();
+
+document.getElementById("editbtn").onclick=()=>{
+  form.hidden=false; document.getElementById("progress").hidden=false;
+  document.getElementById("done").hidden=true;
+};
+document.getElementById("copybtn").onclick=async()=>{
+  const ta=document.getElementById("summary"); const toast=document.getElementById("toast");
+  try{ await navigator.clipboard.writeText(ta.value); toast.textContent="Respuestas copiadas."; }
+  catch(e){ ta.focus(); ta.select(); try{ document.execCommand("copy"); toast.textContent="Respuestas copiadas."; }catch(_){ toast.textContent="Selecciona el texto de abajo y cópialo."; } }
+};
+
+document.getElementById("nombre").value="Carlos Merino";
+loadDraft(); updateConditional(); updateProgress();
+</script>
+</body>
+</html>
